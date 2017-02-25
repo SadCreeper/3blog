@@ -19,4 +19,4 @@ Route::resource('articles','ArticlesController');
 
 Route::resource('comments','CommentsController');
 
-Route::resource('users','UsersController',['only' => ['show','edit']]);
+Route::resource('users','UsersController',['only' => ['show','edit','update']]);
