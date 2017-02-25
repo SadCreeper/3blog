@@ -10,6 +10,8 @@ use App\Notice;
 
 use App\Article;
 
+use Auth;
+
 class CommentsController extends Controller
 {
 
@@ -17,7 +19,7 @@ class CommentsController extends Controller
     public function index()
     {
         //获取全部评论
-        $comments = Comment::orderBy('created_at','desc')->paginate(20);
+        $comments = Comment::where('user_id', Auth::id())->orderBy('created_at','desc')->paginate(20);
 
         return view('comments.index', compact('comments'));
     }
@@ -89,7 +91,7 @@ class CommentsController extends Controller
     {
         $user_id = Article::findOrFail($id)->user->id;
         $this->authorize('isMe', $user_id);
-        
+
         $comment = Comment::findOrFail($id);
         $comment->delete();
         session()->flash('success', '删除成功');
