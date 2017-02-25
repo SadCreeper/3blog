@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>@yield('title', '无标题') - 3blog</title>
 
     <!-- Styles -->
     <link href="/css/app.css" rel="stylesheet">
@@ -60,6 +60,18 @@
 
                                 <ul class="dropdown-menu" role="menu">
                                     <li>
+                                        <a href="{{ route('articles.create') }}">
+                                            写文章
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="{{ route('articles.index') }}">
+                                            我的文章
+                                        </a>
+                                    </li>
+
+                                    <li>
                                         <a href="{{ url('/logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -78,7 +90,10 @@
             </div>
         </nav>
 
-        @yield('content')
+        <div class="container">
+            @include('shared.messages')
+            @yield('content')
+        </div>
     </div>
 
     <!-- Scripts -->

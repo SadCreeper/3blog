@@ -14,3 +14,5 @@
 Auth::routes();
 
 Route::get('/', 'StaticPagesController@home')->name('home');
+
+Route::resource('articles','ArticlesController');
