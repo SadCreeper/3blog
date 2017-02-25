@@ -55,7 +55,9 @@
                         @else
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    <span style="color:red">{{ Auth::user()->notices()->where('status', 1)->count() }}</span>
+                                    @if (Auth::user()->notices()->where('status', 1)->count() > 0)
+                                      <span style="color:red">{{ Auth::user()->notices()->where('status', 1)->count() }}</span>
+                                    @endif
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 
@@ -80,7 +82,10 @@
 
                                     <li>
                                         <a href="{{ route('notices.index') }}">
-                                            我的消息 <span style="color:red">{{ Auth::user()->notices()->where('status', 1)->count() }}</span>
+                                            我的消息
+                                            @if (Auth::user()->notices()->where('status', 1)->count() > 0)
+                                              <span style="color:red">{{ Auth::user()->notices()->where('status', 1)->count() }}</span>
+                                            @endif
                                         </a>
                                     </li>
 
