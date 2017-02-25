@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 
 use App\Comment;
 
+use App\Notice;
+
+use App\Article;
+
 class CommentsController extends Controller
 {
 
@@ -33,6 +37,15 @@ class CommentsController extends Controller
             'content' => $request->content,
         ]);
 
+        ;
+
+        $notick = Notice::create([
+            'user_id' => Article::findOrFail($request->article_id)->user->id,
+            'content' => '您收到了一条新评论，点击查看',
+            'link' => $request->article_id,
+        ]);
+
+
         session()->flash('success', '评论成功');
         return back();
     }
@@ -40,6 +53,9 @@ class CommentsController extends Controller
     //编辑评论页
     public function edit($id)
     {
+        $user_id = Comment::findOrFail($id)->user->id;
+        $this->authorize('isMe', $user_id);
+
         $comment = Comment::findOrFail($id);
         return view('comments.edit', compact('comment'));
     }
@@ -47,6 +63,9 @@ class CommentsController extends Controller
     //评论更新
     public function update($id, Request $request)
     {
+        $user_id = Article::findOrFail($id)->user->id;
+        $this->authorize('isMe', $user_id);
+
         $this->validate($request, [
             'article_id' => 'required',
             'user_id' => 'required',
@@ -68,6 +87,9 @@ class CommentsController extends Controller
     //评论删除
     public function destroy($id)
     {
+        $user_id = Article::findOrFail($id)->user->id;
+        $this->authorize('isMe', $user_id);
+        
         $comment = Comment::findOrFail($id);
         $comment->delete();
         session()->flash('success', '删除成功');

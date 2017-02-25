@@ -3,17 +3,13 @@
 @section('title', '首页')
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
-
-                <div class="panel-body">
-                    You are logged in!
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">文章列表</h3>
+  </div>
+  <div class="panel-body">
+    @each('shared.article', $articles, 'article')
+  </div>
 </div>
+{{ $articles->render() }}
 @endsection

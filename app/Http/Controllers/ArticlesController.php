@@ -7,13 +7,15 @@ use Illuminate\Http\Request;
 use App\Article;
 use App\Comment;
 
+use Auth;
+
 class ArticlesController extends Controller
 {
     //文章列表页
     public function index()
     {
         //获取全部文章
-        $articles = Article::orderBy('created_at','desc')->paginate(20);
+        $articles = Article::where('user_id', Auth::id())->orderBy('created_at','desc')->paginate(20);
 
         return view('articles.index', compact('articles'));
     }
@@ -46,6 +48,9 @@ class ArticlesController extends Controller
     //编辑文章页
     public function edit($id)
     {
+        $user_id = Article::findOrFail($id)->user->id;
+        $this->authorize('isMe', $user_id);
+
         $article = Article::findOrFail($id);
         return view('articles.edit', compact('article'));
     }
@@ -53,6 +58,9 @@ class ArticlesController extends Controller
     //文章更新
     public function update($id, Request $request)
     {
+        $user_id = Article::findOrFail($id)->user->id;
+        $this->authorize('isMe', $user_id);
+
         $this->validate($request, [
             'title' => 'required|max:50',
             'category' => 'required',
@@ -73,6 +81,9 @@ class ArticlesController extends Controller
     //文章删除
     public function destroy($id)
     {
+        $user_id = Article::findOrFail($id)->user->id;
+        $this->authorize('isMe', $user_id);
+
         $article = Article::findOrFail($id);
         $article->delete();
         session()->flash('success', '删除成功');

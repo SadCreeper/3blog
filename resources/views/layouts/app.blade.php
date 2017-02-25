@@ -55,6 +55,7 @@
                         @else
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                    <span style="color:red">{{ Auth::user()->notices()->where('status', 1)->count() }}</span>
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 
@@ -74,6 +75,12 @@
                                     <li>
                                         <a href="{{ route('comments.index') }}">
                                             我的评论
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="{{ route('notices.index') }}">
+                                            我的消息 <span style="color:red">{{ Auth::user()->notices()->where('status', 1)->count() }}</span>
                                         </a>
                                     </li>
 

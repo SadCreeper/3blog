@@ -18,6 +18,7 @@ class CreateNoticesTable extends Migration
             $table->integer('user_id');
             $table->string('content');
             $table->string('link');
+            $table->integer('status')->default(1);
             $table->timestamps();
         });
     }

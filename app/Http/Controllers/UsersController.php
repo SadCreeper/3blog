@@ -22,11 +22,13 @@ class UsersController extends Controller
     public function update($id, Request $request)
     {
 
+
         //封面图片压缩存储并生成路径
         $icon_path = "/img/icon/" . time() . ".jpg";
         Image::make($request->icon)->resize(200, 200)->save(public_path($icon_path));
 
         $user = User::findOrFail($id);
+        $this->authorize('isMe', $user_id);
         $user->update([
             'icon' => $icon_path,
         ]);
