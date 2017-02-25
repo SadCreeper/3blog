@@ -16,3 +16,7 @@ Auth::routes();
 Route::get('/', 'StaticPagesController@home')->name('home');
 
 Route::resource('articles','ArticlesController');
+
+Route::resource('comments','CommentsController');
+
+Route::resource('users','UsersController',['only' => ['show','edit']]);

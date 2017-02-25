@@ -72,6 +72,18 @@
                                     </li>
 
                                     <li>
+                                        <a href="{{ route('comments.index') }}">
+                                            我的评论
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="{{ route('users.show', Auth::id()) }}">
+                                            个人信息
+                                        </a>
+                                    </li>
+
+                                    <li>
                                         <a href="{{ url('/logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

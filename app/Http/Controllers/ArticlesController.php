@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Article;
+use App\Comment;
 
 class ArticlesController extends Controller
 {
@@ -83,6 +84,8 @@ class ArticlesController extends Controller
     {
         $article = Article::findOrFail($id);
 
-        return view('articles.detail', compact('article'));
+        $comments = Article::findOrFail($id)->comments;
+
+        return view('articles.detail', compact(['article','comments']));
     }
 }
