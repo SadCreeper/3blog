@@ -167,7 +167,7 @@ return [
          * Package Service Providers...
          */
 
-        //
+        Sven\ArtisanView\ArtisanViewServiceProvider::class,
 
         /*
          * Application Service Providers...
